@@ -1,8 +1,10 @@
 package com.springboot.finanso.entity;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.sql.Date;
+
 
 @Entity
 @Table(name = "finance")
@@ -25,6 +27,7 @@ public class Finance {
     @Column(name = "note")
     private String note;
 
+    @UpdateTimestamp
     @Column(name = "date")
     private Date date;
 
