@@ -3,6 +3,7 @@ package com.springboot.finanso.controller;
 import com.springboot.finanso.entity.Finance;
 import com.springboot.finanso.service.FinanceService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -22,9 +23,11 @@ public class FinanceController {
 
     @GetMapping("/list")
     public String listFinances(Model model) {
-        List<Finance> finances = financeService.findAll();
+
+        return findPaginated(1, model);
+     /*   List<Finance> finances = financeService.findAll();
         model.addAttribute("finances", finances);
-        return "finances/list-finances";
+        return "finances/list-finances";*/
     }
 
     @GetMapping("/showFormForAdd")
@@ -52,4 +55,19 @@ public class FinanceController {
         financeService.deleteById(id);
         return "redirect:/finances/list";
     }
+
+    @GetMapping("page/{pageNo}")
+    public String findPaginated(@PathVariable(value = "pageNo") int pageNo, Model model) {
+        int pageSize = 5;
+        Page<Finance> page = financeService.findPaginated(pageNo, pageSize);
+        List<Finance> finances = page.getContent();
+
+        model.addAttribute("currentPage", pageNo);
+        model.addAttribute("totalPages", page.getTotalPages());
+        model.addAttribute("totalItems", page.getTotalElements());
+        model.addAttribute("finances", finances);
+        return "finances/list-finances";
+
+    }
+
 }

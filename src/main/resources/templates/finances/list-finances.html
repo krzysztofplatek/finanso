@@ -19,7 +19,7 @@
     <h1>FINAN$O</h1>
 
     <hr>
-    
+
     <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
         <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
         <label class="btn btn-outline-info" for="btnradio1" onclick="showForm(1)">all</label>
@@ -163,6 +163,32 @@
         Add finance
     </a>
 
+    <nav aria-label="pages" th:if="${totalPages > 1}" style="">
+        <ul class="pagination justify-content-center">
+
+            <li class="page-item" aria-current="page">
+                <a class="page-link" th:if="${currentPage > 1}" th:href="@{'/finances/page/' + ${currentPage - 1}}">Previous</a>
+                <span class="page-link" th:unless="${currentPage > 1}">Previous</span>
+            </li>
+
+
+            <span class="page-item" th:each="i: ${#numbers.sequence(1, totalPages)}">
+                    <li class="page-item">
+                     <a class="page-link" th:if="${currentPage != i}" th:href="@{'/finances/page/' + ${i}}">[[${i}]]</a>
+                     <span class="page-link active" th:unless="${currentPage != i}">[[${i}]]</span>
+                     </li>
+            </span>
+
+
+            <li class="page-item">
+                <a class="page-link" th:if="${currentPage < totalPages}"
+                   th:href="@{'/finances/page/' + ${currentPage + 1}}">Next</a>
+                <span class="page-link" th:unless="${currentPage < totalPages}">Next</span>
+            </li>
+
+        </ul>
+    </nav>
+    
 </div>
 
 </body>
