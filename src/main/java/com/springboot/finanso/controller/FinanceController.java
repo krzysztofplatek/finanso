@@ -2,10 +2,14 @@ package com.springboot.finanso.controller;
 
 import com.springboot.finanso.entity.Finance;
 import com.springboot.finanso.service.FinanceService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,31 +25,42 @@ public class FinanceController {
         this.financeService = financeService;
     }
 
+    @InitBinder
+    public void initBinder(WebDataBinder dataBinder) {
+        StringTrimmerEditor stringTrimmerEditor = new StringTrimmerEditor(true);
+        dataBinder.registerCustomEditor(String.class, stringTrimmerEditor);
+    }
+
     @GetMapping("/list")
     public String listFinances(Model model) {
-
-        return findPaginated(1, model);
-     /*   List<Finance> finances = financeService.findAll();
-        model.addAttribute("finances", finances);
-        return "finances/list-finances";*/
+        return findPaginated(1, "id", "asc", model);
     }
 
     @GetMapping("/showFormForAdd")
     public String showFormForAdd(Model model) {
         Finance finance = new Finance();
-        model.addAttribute("finances", finance);
+        model.addAttribute("finance", finance);
         return "finances/finance-add-form";
     }
 
     @GetMapping("/showFormForUpdate")
     public String showFormForUpdate(@RequestParam("financeId") int id, Model model) {
         Finance finance = financeService.findById(id);
-        model.addAttribute("finances", finance);
+        model.addAttribute("finance", finance);
         return "finances/finance-add-form";
     }
 
     @PostMapping("/save")
-    public String saveFinance(@ModelAttribute("finance") Finance finance) {
+    public String saveFinance(@Valid @ModelAttribute("finance") Finance finance,
+                              BindingResult bindingResult) {
+
+        System.out.println("title: |" + finance.getTitle() + "|");
+        System.out.println("money: |" + finance.getAmount() + "|");
+
+        if (bindingResult.hasErrors()) {
+            System.out.println("erors");
+            return "finances/finance-add-form";
+        }
         financeService.save(finance);
         return "redirect:/finances/list";
     }
@@ -57,17 +72,24 @@ public class FinanceController {
     }
 
     @GetMapping("page/{pageNo}")
-    public String findPaginated(@PathVariable(value = "pageNo") int pageNo, Model model) {
+    public String findPaginated(@PathVariable(value = "pageNo") int pageNo,
+                                @RequestParam("sortField") String sortField,
+                                @RequestParam("sortDir") String sortDir,
+                                Model model) {
         int pageSize = 5;
-        Page<Finance> page = financeService.findPaginated(pageNo, pageSize);
+        Page<Finance> page = financeService.findPaginated(pageNo, pageSize, sortField, sortDir);
         List<Finance> finances = page.getContent();
 
         model.addAttribute("currentPage", pageNo);
         model.addAttribute("totalPages", page.getTotalPages());
         model.addAttribute("totalItems", page.getTotalElements());
+
+        model.addAttribute("sortField", page);
+        model.addAttribute("sortDir", sortDir);
+        model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
+
         model.addAttribute("finances", finances);
         return "finances/list-finances";
-
     }
 
 }

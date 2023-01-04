@@ -1,11 +1,19 @@
 package com.springboot.finanso.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.sql.Date;
 
-
+@Getter
+@Setter
+@AllArgsConstructor
+@ToString
 @Entity
 @Table(name = "finance")
 public class Finance {
@@ -15,12 +23,15 @@ public class Finance {
     @Column(name = "id")
     private int id;
 
+    @NotBlank(message = "Title is required")
     @Column(name = "title")
     private String title;
 
+    @NotNull
     @Column(name = "amount")
     private double amount;
 
+    @NotBlank(message = "You should choose category")
     @Column(name = "category")
     private String category;
 
@@ -32,74 +43,5 @@ public class Finance {
     private Date date;
 
     public Finance() {
-    }
-
-    public Finance(int id, String title, double amount, String category, String note, Date date) {
-        this.id = id;
-        this.title = title;
-        this.amount = amount;
-        this.category = category;
-        this.note = note;
-        this.date = date;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public double getAmount() {
-        return amount;
-    }
-
-    public void setAmount(double amount) {
-        this.amount = amount;
-    }
-
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
-    }
-
-    public String getNote() {
-        return note;
-    }
-
-    public void setNote(String note) {
-        this.note = note;
-    }
-
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
-    @Override
-    public String toString() {
-        return "Finance{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", amount=" + amount +
-                ", category='" + category + '\'' +
-                ", note='" + note + '\'' +
-                ", date=" + date +
-                '}';
     }
 }
