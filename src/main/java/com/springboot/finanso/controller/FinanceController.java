@@ -54,13 +54,9 @@ public class FinanceController {
     public String saveFinance(@Valid @ModelAttribute("finance") Finance finance,
                               BindingResult bindingResult) {
 
-        System.out.println("title: |" + finance.getTitle() + "|");
-        System.out.println("money: |" + finance.getAmount() + "|");
-
-        if (bindingResult.hasErrors()) {
-            System.out.println("erors");
+        if (bindingResult.hasErrors())
             return "finances/finance-add-form";
-        }
+
         financeService.save(finance);
         return "redirect:/finances/list";
     }
@@ -73,8 +69,8 @@ public class FinanceController {
 
     @GetMapping("page/{pageNo}")
     public String findPaginated(@PathVariable(value = "pageNo") int pageNo,
-                                @RequestParam("sortField") String sortField,
-                                @RequestParam("sortDir") String sortDir,
+                                @RequestParam(name = "sortField") String sortField,
+                                @RequestParam(name = "sortDir") String sortDir,
                                 Model model) {
         int pageSize = 5;
         Page<Finance> page = financeService.findPaginated(pageNo, pageSize, sortField, sortDir);
@@ -84,7 +80,7 @@ public class FinanceController {
         model.addAttribute("totalPages", page.getTotalPages());
         model.addAttribute("totalItems", page.getTotalElements());
 
-        model.addAttribute("sortField", page);
+        model.addAttribute("sortField", sortField);
         model.addAttribute("sortDir", sortDir);
         model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
 

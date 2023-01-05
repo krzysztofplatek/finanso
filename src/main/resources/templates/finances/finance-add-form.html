@@ -10,17 +10,23 @@
     <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
 </head>
 
-<body>
+<!--/*@thymesVar id="currentPage" type="java"*/-->
+<!--/*@thymesVar id="reverseSortDir" type="java"*/-->
+<!--/*@thymesVar id="reverseSortDir" type="java"*/-->
+<!--/*@thymesVar id="title" type="java"*/-->
+<!--/*@thymesVar id="amount" type="java"*/-->
+<!--/*@thymesVar id="note" type="java"*/-->
+<!--/*@thymesVar id="finance" type="java"*/-->
+<!--/*@thymesVar id="sortField" type="java"*/-->
+<!--/*@thymesVar id="sortDir" type="java"*/-->
+<!--/*@thymesVar id="totalPages" type="java"*/-->
 
+<body>
 
 <div class="container">
 
-    <!--    <img th:src="@{/pic/logo.png}" class="img-fluid" alt="app logo"/>-->
-
     <hr>
-
     <h1><a style="text-decoration: none" th:href="@{/finances/list}">FINAN$O</a></h1>
-
     <hr>
 
     <form action="#" th:action="@{/finances/save}" th:object="${finance}" method="post">
@@ -56,7 +62,7 @@
         <div class="mb-3">
             <label for="note" class="form-label">Comment</label>
             <input type="text" th:field="*{note}" class="form-control" id="note">
-            <div class="alert alert-warning" th:if="${#fields.hasErrors('note')}" th:errors="*{note}"></div>
+            <div class="alert alert-danger mt-1 p-1" th:if="${#fields.hasErrors('note')}" th:errors="*{note}"></div>
         </div>
 
         <hr>

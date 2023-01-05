@@ -8,6 +8,7 @@ import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.annotations.UpdateTimestamp;
 
+
 import java.sql.Date;
 
 @Getter
@@ -23,19 +24,21 @@ public class Finance {
     @Column(name = "id")
     private int id;
 
-    @NotBlank(message = "Title is required")
+    @NotBlank(message = "{title.not.blank}")
+    @Size(min = 3, max = 15, message = "{title.size}")
     @Column(name = "title")
     private String title;
 
-    @NotNull
+    @NotNull(message = "{amount.not.null}")
     @Column(name = "amount")
-    private double amount;
+    private Double amount;
 
-    @NotBlank(message = "You should choose category")
+    @NotBlank(message = "{category.not.blank}")
     @Column(name = "category")
     private String category;
 
     @Column(name = "note")
+    @Size(min = 2, max = 100, message = "{note.size}")
     private String note;
 
     @UpdateTimestamp
@@ -44,4 +47,5 @@ public class Finance {
 
     public Finance() {
     }
+
 }
