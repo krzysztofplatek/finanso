@@ -61,5 +61,9 @@ public class FinanceServiceImpl implements FinanceService {
         return this.financeRepository.findAll(pageable);
     }
 
+    @Override
+    public List<Finance> findByKeyword(String keyword) {
+        return financeRepository.findByKeyword(keyword);
+    }
 
 }

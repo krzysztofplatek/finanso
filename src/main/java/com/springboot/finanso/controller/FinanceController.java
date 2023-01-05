@@ -6,6 +6,7 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -34,6 +35,13 @@ public class FinanceController {
     @GetMapping("/list")
     public String listFinances(Model model) {
         return findPaginated(1, "id", "asc", model);
+    }
+
+    @GetMapping("/search")
+    public String searchFinanses(@Param(value = "keyword") String keyword, Model model) {
+        model.addAttribute("finances", financeService.findByKeyword(keyword));
+        model.addAttribute("financesSize", financeService.findByKeyword(keyword).size());
+        return "finances/list-search-results";
     }
 
     @GetMapping("/showFormForAdd")
@@ -85,6 +93,7 @@ public class FinanceController {
         model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
 
         model.addAttribute("finances", finances);
+
         return "finances/list-finances";
     }
 

@@ -15,5 +15,8 @@ public interface FinanceRepository extends JpaRepository<Finance, Integer> {
     Page<Finance> findAll(Pageable pageable);
 
     List<Finance> findAll(Sort sort);
-    
+
+    @Query(value = "select * from Finance f where f.title like %:keyword%", nativeQuery = true)
+    List<Finance> findByKeyword(@Param("keyword") String keyword);
+
 }

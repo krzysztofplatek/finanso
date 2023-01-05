@@ -28,28 +28,57 @@
 <div class="container">
 
     <hr>
-    <h1>FINAN$O</h1>
+    <h1><a style="text-decoration: none" th:href="@{/finances/list}">FINAN$O</a></h1>
     <hr>
 
-    <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-        <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
-        <label class="btn btn-outline-info" for="btnradio1" onclick="showForm(1)">all</label>
+    <!--                        <div class="btn-group" role="group" aria-label="Basic radio toggle button group">-->
+    <!--                            <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>-->
+    <!--                            <label class="btn btn-outline-info" for="btnradio1" onclick="showForm(1)">all</label>-->
 
-        <input type="radio" class="btn-check btn-block" name="btnradio" id="btnradio2" autocomplete="off">
-        <label class="btn btn-outline-success" for="btnradio2" onclick="showForm(2)">income</label>
+    <!--                            <input type="radio" class="btn-check btn-block" name="btnradio" id="btnradio2" autocomplete="off">-->
+    <!--                            <label class="btn btn-outline-success" for="btnradio2" onclick="showForm(2)">income</label>-->
 
-        <input type="radio" class="btn-check btn-block" name="btnradio" id="btnradio3" autocomplete="off">
-        <label class="btn btn-outline-danger" for="btnradio3" onclick="showForm(3)">expenses</label>
+    <!--                            <input type="radio" class="btn-check btn-block" name="btnradio" id="btnradio3" autocomplete="off">-->
+    <!--                            <label class="btn btn-outline-danger" for="btnradio3" onclick="showForm(3)">expenses</label>-->
+    <!--                        </div>-->
+    <!--                        <div>-->
+    <!--                            <form th:action="@{/finances/search}" method="get" class="input-group mb-3 w-25 float-right">-->
+    <!--                                <input type="text" class="form-control" placeholder="search by title"-->
+    <!--                                       aria-describedby="button-addon2" name="keyword">-->
+    <!--                                <button class="btn btn-outline-secondary" type="submit">Search</button>-->
+    <!--                            </form>-->
+    <!--                        </div>-->
+    <!--                    </div>-->
+
+    <div class="input-group justify-content-between">
+        <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+            <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
+            <label class="btn btn-outline-info" for="btnradio1" onclick="showForm(1)">all</label>
+
+            <input type="radio" class="btn-check btn-block" name="btnradio" id="btnradio2" autocomplete="off">
+            <label class="btn btn-outline-success" for="btnradio2" onclick="showForm(2)">income</label>
+
+            <input type="radio" class="btn-check btn-block" name="btnradio" id="btnradio3" autocomplete="off">
+            <label class="btn btn-outline-danger" for="btnradio3" onclick="showForm(3)">expenses</label>
+        </div>
+        <div class="btn-group" role="group">
+            <form th:action="@{/finances/search}" method="get">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="search by title"
+                           aria-describedby="button-addon2" name="keyword">
+                    <div class="input-group-prepend">
+                        <button class="btn btn-outline-secondary" type="submit">Search</button>
+                    </div>
+                </div>
+            </form>
+        </div>
     </div>
 
-    <br>
     <br>
 
     <div id="form1">
         <form>
-
             <table class="table table-bordered">
-
                 <thead class="table-light">
                 <tr>
                     <th>
@@ -219,7 +248,7 @@
                    th:href="@{'/finances/page/' + ${currentPage + 1}+'?sortField='+${sortField}+'&sortDir='+${sortDir}}">Next</a>
                 <span class="page-link" th:unless="${currentPage < totalPages}">Next</span>
             </li>
-            
+
         </ul>
     </nav>
 
