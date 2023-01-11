@@ -25,7 +25,6 @@ public class FinanceServiceImpl implements FinanceService {
     @Override
     public List<Finance> findAll() {
         return financeRepository.findAll();
-
     }
 
     @Override
@@ -45,6 +44,12 @@ public class FinanceServiceImpl implements FinanceService {
     @Override
     public void save(Finance finance) {
         financeRepository.save(finance);
+    }
+
+    @Override
+    public Finance saveFinance(Finance finance) {
+        financeRepository.save(finance);
+        return finance;
     }
 
     @Override

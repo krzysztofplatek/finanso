@@ -7,9 +7,11 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public interface FinanceRepository extends JpaRepository<Finance, Integer> {
 
     Page<Finance> findAll(Pageable pageable);
@@ -19,4 +21,8 @@ public interface FinanceRepository extends JpaRepository<Finance, Integer> {
     @Query(value = "select * from Finance f where f.title like %:keyword%", nativeQuery = true)
     List<Finance> findByKeyword(@Param("keyword") String keyword);
 
+    List<Finance> findByTitle(String title);
+
+
 }
+
