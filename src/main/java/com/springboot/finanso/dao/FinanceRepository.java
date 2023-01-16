@@ -23,6 +23,5 @@ public interface FinanceRepository extends JpaRepository<Finance, Integer> {
 
     List<Finance> findByTitle(String title);
 
-
 }
 
