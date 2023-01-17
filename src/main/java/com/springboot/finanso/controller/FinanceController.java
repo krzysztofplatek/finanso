@@ -39,6 +39,7 @@ public class FinanceController {
 
     @GetMapping("/search")
     public String searchFinanses(@Param(value = "keyword") String keyword, Model model) {
+        model.addAttribute("keyword", keyword);
         model.addAttribute("finances", financeService.findByKeyword(keyword));
         model.addAttribute("financesSize", financeService.findByKeyword(keyword).size());
         return "finances/list-search-results";

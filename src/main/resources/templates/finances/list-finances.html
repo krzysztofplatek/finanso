@@ -9,7 +9,6 @@
           integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <script th:src="@{/js/utils.js}"></script>
     <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 </head>
 
 <!--/*@thymesVar id="currentPage" type="java"*/-->
@@ -27,8 +26,11 @@
 
 <div class="container">
 
+    <!--    <hr>-->
+    <!--    <h1><a style="text-decoration: none" th:href="@{/finances/list}">FINAN$O</a></h1>-->
+    <!--    <hr>-->
     <hr>
-    <h1><a style="text-decoration: none" th:href="@{/finances/list}">FINAN$O</a></h1>
+    <a th:href="@{/finances/list}"><img th:src="@{/pics/logo.png}" alt="logo"></a>
     <hr>
 
     <!--                        <div class="btn-group" role="group" aria-label="Basic radio toggle button group">-->
